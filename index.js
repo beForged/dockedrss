@@ -1,5 +1,5 @@
-import got from "got";
-import parser from "fast-xml-parser";
+const got = require("got");
+const parser = require("fast-xml-parser");
 
 var options = {
     ignoreAttributes : false,
