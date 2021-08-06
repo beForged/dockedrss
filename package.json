@@ -1,0 +1,15 @@
+{
+  "name": "dockedrss",
+  "version": "1.0.0",
+  "description": "rss parser that publishes to webhook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^3.19.0",
+    "got": "^11.8.2"
+  },
+  "author": "Richard Yu",
+  "license": "MIT"
+}
