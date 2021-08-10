@@ -1,3 +1,4 @@
+require('dotenv').config()
 const got = require("got");
 const parser = require("fast-xml-parser");
 
@@ -7,22 +8,19 @@ var options = {
 }
 
 var time 
+const ONE_MINUTE = 1000 * 60
 const postLink
-const getLink = "https://reddit.com/r/animereactionimages/new.rss" 
 
 function main(){
-  startup()
-  while(true){
-    var posts = updateLoop();
-    for(p in posts.reverse()){
-      postNewEntry(p, link)
-    }
-  }
+  time = Date.now()
+  setInterval(mainLoop, ONE_MINUTE)
 }
 
-function startup(){
-  time = Date.now()
-
+function mainLoop(){
+    var posts = updateLoop();
+    for(p in posts.reverse()){
+      postNewEntry(p, process.env.WEBHOOK_LINK)
+    }
 }
 
 function updateLoop(){
@@ -38,7 +36,7 @@ function updateLoop(){
 }
 
 async function getEntries() {
-  const buffer = await got(getLink, {
+  const buffer = await got(process.env.FETCH_LINK, {
     responseType: "buffer",
     resolveBodyOnly: true,
     timeout: 5000,
