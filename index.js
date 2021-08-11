@@ -9,15 +9,18 @@ var options = {
 
 var time 
 const ONE_MINUTE = 1000 * 60
-const postLink
+
+//run the thing
+main()
 
 function main(){
+  console.log("running main")
   time = Date.now()
-  setInterval(mainLoop, ONE_MINUTE)
+  setInterval(fetchAndPost, ONE_MINUTE)
 }
 
-function mainLoop(){
-    var posts = updateLoop();
+function fetchAndPost(){
+    var posts = getNewEntries();
     //goes backwards for time keeping reasons
     for(p in posts.reverse()){
       postNewEntry(p, process.env.WEBHOOK_LINK)
@@ -25,11 +28,12 @@ function mainLoop(){
     }
 }
 
-function updateLoop(){
-  var entries = getEntries();
+function getNewEntries(){
+  var entries = getAllEntries();
   var posts = []
   for (entry in entries) {
     if(Date.parse(entry.published) > time){
+      console.log("new entry found")
       console.log(buildWebhookPost(entry))
       posts.push(buildWebhookPost(entry))
     }
@@ -37,7 +41,8 @@ function updateLoop(){
   return posts
 }
 
-async function getEntries() {
+async function getAllEntries() {
+  console.log("fetching rss feed")
   const buffer = await got(process.env.FETCH_LINK, {
     responseType: "buffer",
     resolveBodyOnly: true,
