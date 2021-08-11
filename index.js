@@ -18,8 +18,10 @@ function main(){
 
 function mainLoop(){
     var posts = updateLoop();
+    //goes backwards for time keeping reasons
     for(p in posts.reverse()){
       postNewEntry(p, process.env.WEBHOOK_LINK)
+      time = Date.parse(p.entry.published)
     }
 }
 
