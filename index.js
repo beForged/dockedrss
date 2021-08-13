@@ -27,8 +27,8 @@ function main(){
   console.log("running main")
   time = Date.now()
   //inital
-  getAllEntries()
-  //setInterval(getAllEntries, ONE_MINUTE)
+  //getAllEntries()
+  setInterval(getAllEntries, ONE_MINUTE)
 }
 
 async function getAllEntries() {
